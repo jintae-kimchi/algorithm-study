@@ -1,4 +1,11 @@
-function sortedSquares(nums: number[]): number[] {
+/**
+ * https://leetcode.com/problems/squares-of-a-sorted-array/
+ * Runtime 99 ms Beats 86.9% Memory 49.5 MB Beats 63.86%
+ *
+ * 문제에서 제시한 복잡도로 풀었지만 작은 값부터 넣는 방식을 채택하여 코드가 지저분해졌음
+ */
+
+function sortedSquares_250918(nums: number[]): number[] {
   if (nums.length === 1) return [nums[0] ** 2];
 
   let min = Infinity;
@@ -39,6 +46,29 @@ function sortedSquares(nums: number[]): number[] {
     } else {
       ans.push(nums[right++]);
     }
+  }
+  return ans;
+}
+
+/**
+ * 큰 값부터 넣는 방식으로 복기 풀이
+ */
+function sortedSquares_250918_solution(nums: number[]): number[] {
+  let left = 0;
+  let right = nums.length - 1;
+  let idx = nums.length - 1;
+  const ans: number[] = new Array(nums.length);
+  while (left <= right) {
+    const lval = nums[left] ** 2;
+    const rval = nums[right] ** 2;
+    if (lval > rval) {
+      ans[idx] = lval;
+      left++;
+    } else {
+      ans[idx] = rval;
+      right--;
+    }
+    idx--;
   }
   return ans;
 }
